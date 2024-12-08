@@ -18,7 +18,6 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "동탄 영어 학원",
   description: "최고의 영어 교육을 제공하는 동탄 지역 대표 영어 학원입니다.",
-  keywords: "동탄 영어학원, 영어교육, 레벨테스트, 초등영어, 중등영어, 고등영어",
 };
 
 export default function RootLayout({
@@ -28,6 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <script
+          type="text/javascript"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen flex flex-col">
           <Header />

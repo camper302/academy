@@ -16,9 +16,15 @@ export async function GET() {
   }
 }
 
+interface NoticeData {
+  title: string;
+  content: string;
+  category: '공지' | '일정' | '이벤트';
+}
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json() as NoticeData;
     console.log('Received body:', body);
 
     if (!body.title || !body.content || !body.category) {
@@ -30,13 +36,11 @@ export async function POST(request: Request) {
 
     await connectDB();
     const notice = await Notice.create(body);
-    console.log('Created notice:', notice);
-    
     return NextResponse.json(notice);
-  } catch (error: any) {
+  } catch (error) {
     console.error('POST Error:', error);
     return NextResponse.json(
-      { error: '서버 오류가 발생했습니다.', details: error.message },
+      { error: '서버 오류가 발생했습니다.' },
       { status: 500 }
     );
   }

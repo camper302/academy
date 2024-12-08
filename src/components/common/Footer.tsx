@@ -1,49 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
-
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+import KakaoMap from './Map'
 
 export default function Footer() {
-  const mapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadKakaoMap = () => {
-      if (window.kakao && mapRef.current) {
-        const options = {
-          center: new window.kakao.maps.LatLng(37.2294, 126.8403), // 동탄 좌표
-          level: 3
-        };
-        const map = new window.kakao.maps.Map(mapRef.current, options);
-        
-        // 마커 추가
-        const marker = new window.kakao.maps.Marker({
-          position: options.center
-        });
-        marker.setMap(map);
-
-        // 인포윈도우 추가
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: '<div style="padding:5px;">동탄 영어 학원</div>'
-        });
-        infowindow.open(map, marker);
-      }
-    };
-
-    const script = document.createElement('script');
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`;
-    script.onload = () => window.kakao.maps.load(loadKakaoMap);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
   return (
     <footer className="bg-gray-900 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -74,10 +33,9 @@ export default function Footer() {
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">오시는 길</h3>
-            <div 
-              ref={mapRef} 
-              className="w-full h-48 rounded-lg overflow-hidden"
-              style={{ background: '#f1f1f1' }}
+            <KakaoMap 
+              height="200px"
+              className="shadow-lg"
             />
           </div>
         </div>
