@@ -1,22 +1,27 @@
-import { Connection } from 'mongoose';
-
 declare global {
+  // mongoose 전역 변수 타입 정의
   var mongoose: {
-    conn: typeof import('mongoose') | null;
-    promise: Promise<typeof import('mongoose')> | null;
-  };
-  
+    conn: any | null;
+    promise: Promise<any> | null;
+  }
+
+  // 카카오맵 타입 정의
   interface Window {
     kakao: {
       maps: {
-        load: (callback: () => void) => void;
-        LatLng: new (lat: number, lng: number) => any;
-        Map: new (container: HTMLElement, options: any) => any;
-        Marker: new (options: any) => any;
-        InfoWindow: new (options: any) => any;
+        load(callback: () => void): void;
+        Map: any;
+        LatLng: any;
+        Marker: any;
+        InfoWindow: any;
+        services: {
+          Geocoder: any;
+          Places: any;
+        };
       };
     };
   }
 }
 
+// 빈 export로 모듈로 인식되게 함
 export {};
