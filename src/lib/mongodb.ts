@@ -6,32 +6,40 @@ if (!MONGODB_URI) {
   throw new Error('MONGODB_URI must be defined');
 }
 
-// 전역 네임스페이스에 mongoose 속성이 정의되지 않은 경우 초기화
-interface Global {
-  mongoose: {
-    conn: mongoose.Connection | null;
-    promise: Promise<mongoose.Connection> | null;
-  }
+declare global {
+  var mongoose: {
+    conn: any;
+    promise: Promise<any> | null;
+  } | undefined;
 }
 
-declare const global: Global;
+let cached = global.mongoose || { conn: null, promise: null };
 
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+if (!global.mongoose) {
+  global.mongoose = cached;
 }
 
 async function connectDB() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+  try {
+    if (cached.conn) {
+      console.log('Using cached connection');
+      return cached.conn;
+    }
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose.connection);
+    console.log('Creating new connection');
+    if (!cached.promise) {
+      const opts = {
+        bufferCommands: false,
+      };
+      cached.promise = mongoose.connect(MONGODB_URI, opts);
+    }
+    cached.conn = await cached.promise;
+    console.log('Successfully connected to MongoDB');
+    return cached.conn;
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw error;
   }
-  cached.conn = await cached.promise;
-  return cached.conn;
 }
 
 export default connectDB;
