@@ -11,10 +11,14 @@ interface Cached {
   promise: Promise<typeof mongoose> | null;
 }
 
-const cached: Cached = {
+let cached: Cached = global.mongoose || {
   conn: null,
   promise: null
 };
+
+if (!global.mongoose) {
+  global.mongoose = cached;
+}
 
 async function connectDB() {
   try {

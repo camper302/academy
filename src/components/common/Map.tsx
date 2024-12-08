@@ -23,25 +23,26 @@ export default function KakaoMap({
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window.kakao !== 'undefined' && mapRef.current) {
-      window.kakao.maps.load(() => {
-        const options = {
-          center: new window.kakao.maps.LatLng(latitude, longitude),
-          level
-        };
-        
-        const map = new window.kakao.maps.Map(mapRef.current, options);
-        const marker = new window.kakao.maps.Marker({
-          position: options.center
-        });
-        marker.setMap(map);
+    const mapElement = mapRef.current;
+    if (typeof window.kakao === 'undefined' || !mapElement) return;
 
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="padding:5px;">${markerTitle}</div>`
-        });
-        infowindow.open(map, marker);
+    window.kakao.maps.load(() => {
+      const options = {
+        center: new window.kakao.maps.LatLng(latitude, longitude),
+        level
+      };
+      
+      const map = new window.kakao.maps.Map(mapElement, options);
+      const marker = new window.kakao.maps.Marker({
+        position: options.center
       });
-    }
+      marker.setMap(map);
+
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: `<div style="padding:5px;">${markerTitle}</div>`
+      });
+      infowindow.open(map, marker);
+    });
   }, [latitude, longitude, level, markerTitle]);
 
   return (

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Script from 'next/script';
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
+import KakaoMapScript from '@/components/common/KakaoMapScript'
 import "./globals.css";
 
 const geistSans = localFont({
@@ -28,13 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <head>
-        <Script
-          strategy="beforeInteractive"
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
-        />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <KakaoMapScript />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-grow">
