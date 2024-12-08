@@ -28,12 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <head />
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <head>
         <Script
           strategy="beforeInteractive"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
         />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-grow">

@@ -3,6 +3,7 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "no-var": "error",
-    "prefer-const": "error"
+    "prefer-const": "error",
+    "@next/next/no-sync-scripts": "off"
   }
 }
