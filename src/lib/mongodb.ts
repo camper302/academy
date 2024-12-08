@@ -11,7 +11,7 @@ interface Cached {
   promise: Promise<typeof mongoose> | null;
 }
 
-let cached: Cached = global.mongoose || {
+const cached: Cached = global.mongoose || {
   conn: null,
   promise: null
 };
@@ -23,19 +23,19 @@ if (!global.mongoose) {
 async function connectDB() {
   try {
     if (cached.conn) {
-      console.log('Using cached MongoDB connection');
       return cached.conn;
     }
 
     if (!cached.promise) {
-      console.log('Creating new MongoDB connection');
-      cached.promise = mongoose.connect(MONGODB_URI);
+      const opts = {
+        bufferCommands: false,
+      };
+      cached.promise = mongoose.connect(MONGODB_URI, opts);
     }
+
     cached.conn = await cached.promise;
-    console.log('MongoDB connected successfully');
     return cached.conn;
   } catch (error) {
-    console.error('MongoDB connection error:', error);
     throw error;
   }
 }

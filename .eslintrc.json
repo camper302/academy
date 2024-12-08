@@ -4,6 +4,7 @@
     "@typescript-eslint/no-explicit-any": "off",
     "no-var": "error",
     "prefer-const": "error",
-    "@next/next/no-sync-scripts": "off"
+    "@next/next/no-sync-scripts": "off",
+    "no-unused-vars": "warn"
   }
 }

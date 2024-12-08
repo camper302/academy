@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import dynamic from 'next/dynamic';
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
-import KakaoMapScript from '@/components/common/KakaoMapScript'
 import "./globals.css";
+
+// 동적 임포트로 KakaoMapScript 컴포넌트 로드
+const KakaoMapScript = dynamic(() => import('@/components/common/KakaoMapScript'), {
+  ssr: false
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
