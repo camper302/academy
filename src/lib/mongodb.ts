@@ -6,35 +6,29 @@ if (!MONGODB_URI) {
   throw new Error('MONGODB_URI must be defined');
 }
 
-declare global {
-  var mongoose: {
-    conn: any;
-    promise: Promise<any> | null;
-  } | undefined;
+interface Cached {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
 }
 
-let cached = global.mongoose || { conn: null, promise: null };
-
-if (!global.mongoose) {
-  global.mongoose = cached;
-}
+const cached: Cached = {
+  conn: null,
+  promise: null
+};
 
 async function connectDB() {
   try {
     if (cached.conn) {
-      console.log('Using cached connection');
+      console.log('Using cached MongoDB connection');
       return cached.conn;
     }
 
-    console.log('Creating new connection');
     if (!cached.promise) {
-      const opts = {
-        bufferCommands: false,
-      };
-      cached.promise = mongoose.connect(MONGODB_URI, opts);
+      console.log('Creating new MongoDB connection');
+      cached.promise = mongoose.connect(MONGODB_URI);
     }
     cached.conn = await cached.promise;
-    console.log('Successfully connected to MongoDB');
+    console.log('MongoDB connected successfully');
     return cached.conn;
   } catch (error) {
     console.error('MongoDB connection error:', error);
