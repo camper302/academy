@@ -7,19 +7,26 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "vercel-build": "next build"
+    "vercel-build": "next build",
+    "create-admin": "ts-node --project tsconfig.json -r tsconfig-paths/register src/scripts/createAdmin.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
     "mongoose": "^8.8.4",
     "next": "15.0.4",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.17.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^8",
@@ -27,6 +34,8 @@
     "kakao.maps.d.ts": "^0.1.40",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.2"
   }
 }

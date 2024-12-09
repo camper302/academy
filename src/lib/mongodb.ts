@@ -11,6 +11,11 @@ interface Cached {
   promise: Promise<typeof mongoose> | null;
 }
 
+// 글로벌 네임스페이스 확장하여 mongoose 캐시 타입 정의
+declare global {
+  var mongoose: Cached | undefined;
+}
+
 const cached: Cached = global.mongoose || {
   conn: null,
   promise: null

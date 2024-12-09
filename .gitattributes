@@ -1,5 +1,5 @@
 # 모든 텍스트 파일에 대해 LF 사용
-* text=auto eol=lf
+* text=auto
 
 # Windows 스크립트 파일은 CRLF 유지
 *.{cmd,[cC][mM][dD]} text eol=crlf
