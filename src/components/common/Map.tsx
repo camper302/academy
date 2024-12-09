@@ -18,7 +18,7 @@ export default function KakaoMap({
   className = '',
   latitude = 37.1617865,
   longitude = 127.1102523,
-  level = 3,
+  level = 4,
 }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<any>(null);
