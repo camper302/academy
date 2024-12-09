@@ -11,14 +11,14 @@ interface MapProps {
   markerTitle?: string;
 }
 
+//37.1617865, 127.1102523
 export default function KakaoMap({ 
   width = '100%', 
-  height = '200px',
+  height = '240px',
   className = '',
-  latitude = 37.2156,
-  longitude = 127.0726,
+  latitude = 37.1617865,
+  longitude = 127.1102523,
   level = 3,
-  markerTitle = '동탄 영어 학원'
 }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<any>(null);
@@ -40,11 +40,6 @@ export default function KakaoMap({
           position: coords
         });
         marker.setMap(mapInstance.current);
-
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="padding:5px;">${markerTitle}</div>`
-        });
-        infowindow.open(mapInstance.current, marker);
       } catch (error) {
         console.error('카카오맵 초기화 중 오류 발생:', error);
       }
@@ -62,11 +57,10 @@ export default function KakaoMap({
 
     return () => {
       if (mapInstance.current) {
-        // 지도 인스턴스 정리
         mapInstance.current = null;
       }
     };
-  }, [latitude, longitude, level, markerTitle]);
+  }, [latitude, longitude, level]);
 
   return (
     <div 

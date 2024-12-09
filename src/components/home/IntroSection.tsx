@@ -15,7 +15,7 @@ export default function IntroSection() {
               체계적인 커리큘럼과 전문 강사진이 여러분의 영어 실력 향상을 도와드립니다.
             </p>
             <button className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors">
-              무료 레벨테스트 신청
+              레벨 테스트 신청
             </button>
           </div>
           <div className="h-[400px] rounded-lg overflow-hidden shadow-lg bg-gray-100">
