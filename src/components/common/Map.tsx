@@ -21,28 +21,51 @@ export default function KakaoMap({
   markerTitle = '동탄 영어 학원'
 }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<any>(null);
 
   useEffect(() => {
-    const mapElement = mapRef.current;
-    if (typeof window.kakao === 'undefined' || !mapElement) return;
+    const initializeMap = () => {
+      if (!mapRef.current || !window.kakao?.maps) return;
 
-    window.kakao.maps.load(() => {
-      const options = {
-        center: new window.kakao.maps.LatLng(latitude, longitude),
-        level
-      };
-      
-      const map = new window.kakao.maps.Map(mapElement, options);
-      const marker = new window.kakao.maps.Marker({
-        position: options.center
-      });
-      marker.setMap(map);
+      try {
+        const coords = new window.kakao.maps.LatLng(latitude, longitude);
+        const options = {
+          center: coords,
+          level
+        };
+        
+        mapInstance.current = new window.kakao.maps.Map(mapRef.current, options);
+        
+        const marker = new window.kakao.maps.Marker({
+          position: coords
+        });
+        marker.setMap(mapInstance.current);
 
-      const infowindow = new window.kakao.maps.InfoWindow({
-        content: `<div style="padding:5px;">${markerTitle}</div>`
-      });
-      infowindow.open(map, marker);
-    });
+        const infowindow = new window.kakao.maps.InfoWindow({
+          content: `<div style="padding:5px;">${markerTitle}</div>`
+        });
+        infowindow.open(mapInstance.current, marker);
+      } catch (error) {
+        console.error('카카오맵 초기화 중 오류 발생:', error);
+      }
+    };
+
+    const waitForKakao = () => {
+      if (window.kakao?.maps) {
+        window.kakao.maps.load(initializeMap);
+      } else {
+        setTimeout(waitForKakao, 100);
+      }
+    };
+
+    waitForKakao();
+
+    return () => {
+      if (mapInstance.current) {
+        // 지도 인스턴스 정리
+        mapInstance.current = null;
+      }
+    };
   }, [latitude, longitude, level, markerTitle]);
 
   return (

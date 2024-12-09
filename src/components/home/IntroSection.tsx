@@ -18,8 +18,8 @@ export default function IntroSection() {
               무료 레벨테스트 신청
             </button>
           </div>
-          <div className="h-[400px] rounded-lg overflow-hidden shadow-lg">
-            <KakaoMap height="400px" />
+          <div className="h-[400px] rounded-lg overflow-hidden shadow-lg bg-gray-100">
+            {/* 지도 대신 다른 콘텐츠나 이미지를 넣을 수 있습니다 */}
           </div>
         </div>
       </div>

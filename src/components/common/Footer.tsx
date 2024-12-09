@@ -34,8 +34,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">오시는 길</h3>
             <KakaoMap 
-              height="200px"
+              height="300px"
               className="shadow-lg"
+              level={5}
             />
           </div>
         </div>
