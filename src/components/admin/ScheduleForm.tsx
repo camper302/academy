@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Schedule } from '@/types/schedule';
 
 interface ScheduleFormProps {
@@ -8,10 +8,9 @@ interface ScheduleFormProps {
   initialData?: Schedule;
 }
 
-const DAYS_OF_WEEK = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'] as const;
-
+// 시간 옵션 생성 함수
 const generateTimeOptions = () => {
-  const times = [];
+  const times: string[] = [];
   for (let hour = 9; hour <= 22; hour++) {
     for (let minute = 0; minute < 60; minute += 10) {
       const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
@@ -20,6 +19,8 @@ const generateTimeOptions = () => {
   }
   return times;
 };
+
+const DAYS_OF_WEEK = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'] as const;
 
 export default function ScheduleForm({ onSubmit, initialData }: ScheduleFormProps) {
   const [formData, setFormData] = useState<Schedule>(
@@ -36,14 +37,30 @@ export default function ScheduleForm({ onSubmit, initialData }: ScheduleFormProp
   const timeOptions = generateTimeOptions();
 
   useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    }
+    setFormData(initialData || {
+      grade: '초등',
+      dayOfWeek: '',
+      startTime: '',
+      endTime: '',
+      className: '',
+      teacher: ''
+    });
   }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+
+    if (!initialData) {
+      setFormData({
+        grade: '초등',
+        dayOfWeek: '',
+        startTime: '',
+        endTime: '',
+        className: '',
+        teacher: ''
+      });
+    }
   };
 
   return (

@@ -11,3 +11,9 @@ export interface Schedule {
   className: string;
   teacher: string;
 }
+
+export interface ScheduleWithId extends Schedule {
+  _id: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
