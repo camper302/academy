@@ -16,6 +16,8 @@ const programs = [
     },
   ];
   
+  import Link from 'next/link';
+  
   export default function ProgramSection() {
     return (
       <section className="py-16">
@@ -49,11 +51,13 @@ const programs = [
               </div>
             ))}
           </div>
-          <div className="mt-8"> {/* 여백 추가 */}
-          <button className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors">
-              강의 시간표 보기
-            </button>
-            </div>
+          <div className="mt-8 text-center">
+            <Link href="/programs">
+              <button className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors">
+                강의 시간표 보기
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
       
