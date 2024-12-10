@@ -1,3 +1,5 @@
+'use server';
+
 import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI!;
@@ -7,13 +9,12 @@ if (!MONGODB_URI) {
 }
 
 interface Cached {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
+  conn: any | null;
+  promise: Promise<any> | null;
 }
 
-// 글로벌 네임스페이스 확장하여 mongoose 캐시 타입 정의
 declare global {
-  var mongoose: Cached | undefined;
+  var mongoose: Cached;
 }
 
 const cached: Cached = global.mongoose || {
@@ -25,23 +26,34 @@ if (!global.mongoose) {
   global.mongoose = cached;
 }
 
-async function connectDB() {
+export async function connectDB() {
   try {
+    // 이미 연결되어 있다면 기존 연결 반환
     if (cached.conn) {
       return cached.conn;
     }
 
+    // 새로운 연결 생성
     if (!cached.promise) {
       const opts = {
         bufferCommands: false,
       };
+
       cached.promise = mongoose.connect(MONGODB_URI, opts);
     }
 
-    cached.conn = await cached.promise;
+    // 연결 대기 및 캐시 업데이트
+    try {
+      cached.conn = await cached.promise;
+    } catch (e) {
+      cached.promise = null;
+      throw e;
+    }
+
     return cached.conn;
   } catch (error) {
-    throw error;
+    console.error('MongoDB 연결 에러:', error);
+    throw error; // 원본 에러를 그대로 전달하여 디버깅을 용이하게 함
   }
 }
 
