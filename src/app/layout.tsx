@@ -1,18 +1,15 @@
+// 파일 경로: /src/app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import KakaoMapScript from '@/components/common/KakaoMapScript';
-import Header from '@/components/common/Header'
-import Footer from '@/components/common/Footer'
+import Header from '@/components/common/Header';
+import FooterWrapper from '@/components/common/FooterWrapper';
+import AuthProvider from '@/components/providers/AuthProvider';
 import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
   weight: "100 900",
 });
 
@@ -23,20 +20,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <KakaoMapScript />
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+      <body className={`${geistSans.variable} antialiased`}>
+        <AuthProvider>
+          <KakaoMapScript />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <FooterWrapper />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

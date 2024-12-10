@@ -13,6 +13,14 @@ const NoticeSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isEmergency: {
+    type: Boolean,
+    default: false,
+  },
+  isPopup: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -30,6 +38,8 @@ export interface Notice {
   title: string;
   content: string;
   priority: number;
+  isEmergency: boolean;
+  isPopup: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

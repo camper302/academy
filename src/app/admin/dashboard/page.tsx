@@ -20,31 +20,32 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">관리자 대시보드</h1>
+    <div className="admin-layout min-h-screen bg-gray-50">
+      <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-700 text-white z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">관리자 대시보드</h1>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 flex items-center gap-2"
+            className="px-4 py-2 text-sm text-white bg-red-500 hover:bg-red-600 rounded-full flex items-center gap-2 transition-colors duration-200"
           >
             로그아웃
           </button>
         </div>
-
+      </header>
+      <main className="mx-auto max-w-7xl px-4 py-6 mt-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {menuItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col items-center text-center"
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center text-center"
             >
               <div className="text-gray-600 mb-4">{item.icon}</div>
-              <h3 className="text-lg font-medium text-gray-900">{item.title}</h3>
+              <h3 className="text-2xl font-medium text-gray-900">{item.title}</h3>
             </Link>
           ))}
         </div>
-      </div>
+      </main>
     </div>
   )
 }

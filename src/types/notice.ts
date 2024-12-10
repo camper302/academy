@@ -1,8 +1,18 @@
 export interface Notice {
-  id: string;  // _id 대신 id 사용
+  _id: string;
   title: string;
   content: string;
   priority: number;
+  isEmergency: boolean;
+  isPopup: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface NoticeFormData {
+  title: string;
+  content: string;
+  priority?: number;
+  isEmergency?: boolean;
+  isPopup?: boolean;
 }

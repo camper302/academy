@@ -1,23 +1,26 @@
-import { redirect } from 'next/navigation'
-
 'use client';
 
-import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AdminPage() {
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    console.log('Admin page accessed'); // 디버깅용 로그
-    router.push('/admin/login');
-  }, [router]);
+    if (status === 'unauthenticated') {
+      router.push('/admin/login');
+    } else if (status === 'authenticated') {
+      router.push('/admin/dashboard');  // 로그인된 경우 대시보드로
+    }
+  }, [status, router]);
 
-  // 리다이렉트 되기 전까지 보여줄 로딩 상태
+  // 로딩 상태 표시
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <p>리다이렉트 중...</p>
+        <p>로딩 중...</p>
       </div>
     </div>
   );

@@ -5,43 +5,20 @@ import Notice from '@/models/Notice';
 export async function GET() {
   try {
     await connectDB();
-    const notices = await Notice.find({}).sort({ createdAt: -1 }).limit(5);
+    const notices = await Notice.find().sort({ priority: -1, createdAt: -1 });
     return NextResponse.json(notices);
   } catch (error) {
-    console.error('GET Error:', error);
-    return NextResponse.json(
-      { error: '서버 오류가 발생했습니다.' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: '공지사항 조회 실패' }, { status: 500 });
   }
-}
-
-interface NoticeData {
-  title: string;
-  content: string;
-  category: '공지' | '일정' | '이벤트';
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as NoticeData;
-    console.log('Received body:', body);
-
-    if (!body.title || !body.content || !body.category) {
-      return NextResponse.json(
-        { error: '필수 필드가 누락되었습니다.' },
-        { status: 400 }
-      );
-    }
-
+    const body = await request.json();
     await connectDB();
     const notice = await Notice.create(body);
     return NextResponse.json(notice);
   } catch (error) {
-    console.error('POST Error:', error);
-    return NextResponse.json(
-      { error: '서버 오류가 발생했습니다.' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: '공지사항 생성 실패' }, { status: 500 });
   }
 }
