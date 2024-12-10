@@ -36,7 +36,7 @@ export default function IntroSection() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
-    pauseOnHover: true, // 마우스 오버 시 자동 재생 일시 정지
+    pauseOnHover: true,
   };
 
   return (
@@ -45,6 +45,7 @@ export default function IntroSection() {
         <Slider {...settings} className="h-full">
           {slides.map((slide, index) => (
             <div key={index} className="relative h-screen">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30" />
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -53,12 +54,15 @@ export default function IntroSection() {
                 priority={index === 0}
                 sizes="100vw"
               />
-              <div className="absolute inset-0 bg-black/50" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white px-4">
-                  <h1 className="text-5xl font-bold mb-6">{slide.title}</h1>
-                  <p className="text-xl mb-8">{slide.description}</p>
-                  <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                <div className="text-center text-white px-4 max-w-4xl mx-auto">
+                  <h1 className="text-5xl font-bold mb-6 animate-fadeIn">
+                    {slide.title}
+                  </h1>
+                  <p className="text-xl mb-8 animate-fadeIn animation-delay-200">
+                    {slide.description}
+                  </p>
+                  <button className="bg-white text-blue-600 px-8 py-3 rounded-lg shadow-lg hover:bg-blue-50 transition-all">
                     {slide.buttonText}
                   </button>
                 </div>
@@ -83,6 +87,30 @@ export default function IntroSection() {
         }
         .slick-dots li button:before {
           color: white;
+          font-size: 12px;
+          opacity: 0.5;
+        }
+        .slick-dots li.slick-active button:before {
+          opacity: 1;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        .animation-delay-400 {
+          animation-delay: 0.4s;
         }
       `}</style>
     </section>

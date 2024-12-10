@@ -30,8 +30,8 @@ export default async function Home() {
     <main className="relative">
       <IntroSection />
       <ProgramSection />
-      <LevelTestSection />
       <NoticeSection notices={notices} limit={3} />
+      <LevelTestSection />
       <MapSection />
     </main>
   );

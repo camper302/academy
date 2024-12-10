@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 // 네비게이션 아이템 타입 정의
 interface NavigationItem {
@@ -90,11 +91,9 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link href="/" className="flex items-center">
-            <img 
-              src="/images/logo.png" 
-              alt="로고" 
-              className="h-12 w-auto object-contain"
-            />
+            <span className="text-xl font-bold text-primary">
+              키움어학원
+            </span>
           </Link>
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
