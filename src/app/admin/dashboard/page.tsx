@@ -8,7 +8,7 @@ export default function Dashboard() {
   const menuItems = [
     { title: '공지사항 관리', href: '/admin/notices', icon: <FiFileText className="w-6 h-6" /> },
     { title: '강의 시간표 관리', href: '/admin/timetable', icon: <FiCalendar className="w-6 h-6" /> },
-    { title: '레벨 테스트 예약 관리', href: '/admin/level-test', icon: <FiClipboard className="w-6 h-6" /> },
+    { title: '레벨 테스트 예약 관리', href: '/admin/level-tests', icon: <FiClipboard className="w-6 h-6" /> },
   ]
 
   const handleLogout = async () => {

@@ -25,7 +25,7 @@ export default function LevelTestManagement() {
 
   const fetchLevelTests = async () => {
     try {
-      const response = await fetch('/api/level-test');
+      const response = await fetch('/api/level-tests');
       if (!response.ok) throw new Error('데이터를 불러오는데 실패했습니다.');
       
       const data = await response.json();
@@ -49,7 +49,7 @@ export default function LevelTestManagement() {
 
   const handleStatusUpdate = async (id: string, newStatus: string) => {
     try {
-      const response = await fetch(`/api/level-test/${id}`, {
+      const response = await fetch(`/api/level-tests/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

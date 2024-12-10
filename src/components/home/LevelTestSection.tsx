@@ -33,7 +33,7 @@ export default function LevelTestSection() {
         return;
       }
 
-      const response = await fetch('/api/level-test', {
+      const response = await fetch('/api/level-tests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
