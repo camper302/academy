@@ -1,7 +1,6 @@
 // 파일 경로: /src/app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import KakaoMapScript from '@/components/common/KakaoMapScript';
 import Header from '@/components/common/Header';
 import FooterWrapper from '@/components/common/FooterWrapper';
 import AuthProvider from '@/components/providers/AuthProvider';
@@ -27,7 +26,6 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${geistSans.variable} antialiased`}>
         <AuthProvider>
-          <KakaoMapScript />
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-grow">

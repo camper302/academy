@@ -5,13 +5,28 @@ export const metadata: Metadata = {
   description: '무료 레벨테스트로 나의 영어 실력을 확인해보세요.',
 }
 
+/**
+ * 레벨 테스트 신청 페이지
+ * - 기존 LevelTestSection 컴포넌트를 재사용
+ * - /level-test 경로로 접근 시 표시되는 페이지
+ */
+import LevelTestSection from '@/components/home/LevelTestSection';
+
 export default function LevelTestPage() {
   return (
-    <main className="flex-grow">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">레벨테스트</h1>
-        <div className="bg-white shadow rounded-lg p-6">
-          <p className="text-gray-600">레벨테스트 신청 페이지를 준비 중입니다...</p>
+    <main className="bg-gray-50">
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <h1 className="text-3xl font-bold text-center mb-4">레벨 테스트</h1>
+          <p className="text-center text-gray-600">
+            무료 레벨테스트로 나의 영어 실력을 확인해보세요
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="bg-white rounded-lg shadow">
+          <LevelTestSection />
         </div>
       </div>
     </main>

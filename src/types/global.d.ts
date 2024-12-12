@@ -1,3 +1,14 @@
+/**
+ * 전역 타입 정의 파일
+ * 위치: kiwoom-academy/my-app/src/types/global.d.ts
+ * 
+ * @description
+ * - mongoose 및 카카오맵 관련 전역 타입 정의
+ * - Window 인터페이스 확장하여 카카오맵 타입 추가
+ */
+
+/// <reference path="./kakao.d.ts" />
+
 declare global {
   // mongoose 전역 변수 타입 정의
   var mongoose: {
@@ -8,17 +19,7 @@ declare global {
   // 카카오맵 타입 정의
   interface Window {
     kakao: {
-      maps: {
-        load(callback: () => void): void;
-        Map: any;
-        LatLng: any;
-        Marker: any;
-        InfoWindow: any;
-        services: {
-          Geocoder: any;
-          Places: any;
-        };
-      };
+      maps: typeof kakao.maps;
     };
   }
 }

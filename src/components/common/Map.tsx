@@ -1,5 +1,16 @@
 'use client'
-import { useEffect, useRef } from 'react'
+
+import dynamic from 'next/dynamic';
+import { ACADEMY_LOCATION } from '@/constants/location';
+
+const KakaoMap = dynamic(() => import('./KakaoMapScript'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full bg-gray-100 flex items-center justify-center">
+      <p className="text-gray-500">지도를 불러오는 중...</p>
+    </div>
+  )
+});
 
 interface MapProps {
   width?: string;
@@ -11,62 +22,26 @@ interface MapProps {
   markerTitle?: string;
 }
 
-//37.1617865, 127.1102523
-export default function KakaoMap({ 
+export default function Map({ 
   width = '100%', 
   height = '240px',
   className = '',
-  latitude = 37.1617865,
-  longitude = 127.1102523,
-  level = 4,
+  latitude = ACADEMY_LOCATION.coordinates.latitude,
+  longitude = ACADEMY_LOCATION.coordinates.longitude,
+  level = ACADEMY_LOCATION.map.level,
+  markerTitle = ACADEMY_LOCATION.map.markerTitle,
 }: MapProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<any>(null);
-
-  useEffect(() => {
-    const initializeMap = () => {
-      if (!mapRef.current || !window.kakao?.maps) return;
-
-      try {
-        const coords = new window.kakao.maps.LatLng(latitude, longitude);
-        const options = {
-          center: coords,
-          level
-        };
-        
-        mapInstance.current = new window.kakao.maps.Map(mapRef.current, options);
-        
-        const marker = new window.kakao.maps.Marker({
-          position: coords
-        });
-        marker.setMap(mapInstance.current);
-      } catch (error) {
-        console.error('카카오맵 초기화 중 오류 발생:', error);
-      }
-    };
-
-    const waitForKakao = () => {
-      if (window.kakao?.maps) {
-        window.kakao.maps.load(initializeMap);
-      } else {
-        setTimeout(waitForKakao, 100);
-      }
-    };
-
-    waitForKakao();
-
-    return () => {
-      if (mapInstance.current) {
-        mapInstance.current = null;
-      }
-    };
-  }, [latitude, longitude, level]);
-
   return (
     <div 
-      ref={mapRef}
       className={`rounded-lg overflow-hidden bg-gray-100 relative ${className}`}
       style={{ width, height }}
-    />
+    >
+      <KakaoMap 
+        latitude={latitude}
+        longitude={longitude}
+        level={level}
+        markerTitle={markerTitle}
+      />
+    </div>
   );
 }

@@ -85,31 +85,32 @@ export default function Header() {
 
   // 유저 페이지의 기존 헤더 렌더링
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
-    }`}>
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-primary">
-              키움어학원
-            </span>
-          </Link>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`${
-                    isScrolled ? 'text-gray-900 hover:text-primary' : 'text-white hover:text-gray-300'
-                  } px-3 py-2 text-sm font-medium transition-colors`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+    <header className="border-b">
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-8">
+            {/* 로고 */}
+            <Link href="/" className="text-xl font-bold">
+              키움 여학원
+            </Link>
+            
+            {/* 네비게이션 링크 */}
+            <div className="hidden md:flex items-center space-x-6">
+              <Link href="/" className="hover:text-blue-600">홈</Link>
+              <Link href="/about" className="hover:text-blue-600">학원소개</Link>
+              <Link href="/programs" className="hover:text-blue-600">프로그램</Link>
+              <Link href="/notice" className="hover:text-blue-600">공지사항</Link>
+              <Link href="/about?tab=location" className="hover:text-blue-600">오시는길</Link>
             </div>
           </div>
+          
+          {/* 레벨 테스트 버튼 */}
+          <Link 
+            href="/level-test" 
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            레벨 테스트 신청
+          </Link>
         </div>
       </nav>
     </header>
