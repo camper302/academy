@@ -30,11 +30,13 @@ export default async function Home() {
   const notices: Notice[] = await getNotices();
 
   return (
-    <main>
+    <>
       <MainHero />
-      <IntroSection />
-      <ProgramSection />
-      <NoticeSection notices={notices} />
-    </main>
+      <div className="pt-20">
+        <IntroSection />
+        <ProgramSection />
+        <NoticeSection notices={notices} />
+      </div>
+    </>
   );
 }

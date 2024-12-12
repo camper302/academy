@@ -1,7 +1,4 @@
-/**
- * 공통 탭 네비게이션 컴포넌트
- * 위치: kiwoom-academy/my-app/src/components/common/TabNavigation.tsx
- */
+'use client';
 
 interface Tab {
   id: string;
@@ -12,22 +9,31 @@ interface TabNavigationProps {
   tabs: Tab[];
   activeTab: string;
   onTabChange: (tabId: string) => void;
+  className?: string;
 }
 
-export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavigationProps) {
+export default function TabNavigation({ 
+  tabs, 
+  activeTab, 
+  onTabChange,
+  className = '' 
+}: TabNavigationProps) {
   return (
-    <div className="border-b bg-white">
+    <div className={`border-b border-gray-200 bg-white ${className}`}>
       <div className="max-w-7xl mx-auto">
-        <nav className="flex">
+        <nav className="flex justify-center md:justify-start">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`py-4 px-8 text-base font-medium border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`
+                relative px-6 py-4 text-lg transition-colors
+                hover:text-blue-600
+                ${activeTab === tab.id 
+                  ? 'text-blue-600 font-medium after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600' 
+                  : 'text-gray-600'
+                }
+              `}
             >
               {tab.label}
             </button>

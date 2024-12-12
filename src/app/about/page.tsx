@@ -20,7 +20,7 @@ export default function AboutPage() {
 
   useEffect(() => {
     const tab = searchParams.get('tab');
-    if (tab && ['intro', 'facilities', 'location'].includes(tab)) {
+    if (tab) {
       setActiveTab(tab);
     }
   }, [searchParams]);
@@ -30,25 +30,31 @@ export default function AboutPage() {
     router.push(`/about?tab=${tabId}`);
   };
 
+  const activeComponent = tabs.find(tab => tab.id === activeTab)?.component || tabs[0].component;
+
   return (
-    <main className="bg-gray-50">
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h1 className="text-3xl font-bold text-center mb-4">학원소개</h1>
-          <p className="text-center text-gray-600">
-            기우음 영어학원의 특별한 교육 철학을 소개합니다
+    <main className="min-h-screen bg-white">
+      {/* 히어로 섹션 */}
+      <div className="relative h-[50vh] min-h-[400px] flex items-center justify-center bg-gradient-to-r from-blue-50 to-blue-100">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative text-center px-4">
+          <h1 className="text-5xl font-bold mb-4 text-gray-900">학원소개</h1>
+          <p className="text-xl text-gray-700">
+            기우음 영어학원의 특별한 교육 철학과 비전을 소개합니다
           </p>
         </div>
       </div>
 
+      {/* 탭 네비게이션 */}
       <TabNavigation
-        tabs={tabs.map(({ id, label }) => ({ id, label }))}
+        tabs={tabs}
         activeTab={activeTab}
         onTabChange={handleTabChange}
       />
 
+      {/* 컨텐츠 영역 */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {tabs.find(tab => tab.id === activeTab)?.component}
+        {activeComponent}
       </div>
     </main>
   );

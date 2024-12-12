@@ -67,22 +67,43 @@ export default function NoticePage() {
   });
 
   return (
-    <main className="bg-gray-50">
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h1 className="text-3xl font-bold text-center mb-4">공지사항</h1>
-          <p className="text-center text-gray-600">
+    <main className="min-h-screen bg-white">
+      {/* 히어로 섹션 */}
+      <div className="relative h-[50vh] min-h-[400px] flex items-center justify-center bg-gradient-to-r from-blue-50 to-blue-100">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative text-center px-4">
+          <h1 className="text-5xl font-bold mb-4 text-gray-900">공지사항</h1>
+          <p className="text-xl text-gray-700">
             기우음 영어학원의 새로운 소식을 알려드립니다
           </p>
         </div>
       </div>
 
-      <TabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      {/* 탭 네비게이션 */}
+      <div className="sticky top-0 z-[80] bg-white shadow-md">
+        <div className="max-w-7xl mx-auto">
+          <nav className="flex">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`
+                  flex-1 py-6 px-4 text-center transition-all
+                  hover:bg-gray-50
+                  ${activeTab === tab.id 
+                    ? 'text-blue-600 border-b-2 border-blue-600 font-medium' 
+                    : 'text-gray-600'
+                  }
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
 
+      {/* 컨텐츠 영역 */}
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid gap-6">
           {filteredNotices.map((notice) => (
