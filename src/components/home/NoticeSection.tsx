@@ -20,7 +20,7 @@ export default function NoticeSection({ notices = [], limit = 4 }: NoticeSection
               공지사항
             </h2>
             <p className="text-lg text-gray-600">
-              기우음 영어학원의 새로운 소식을 확인하세요
+              키움어학원의 새로운 소식을 확인하세요
             </p>
           </div>
           <Link 

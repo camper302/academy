@@ -3,34 +3,35 @@
 import AboutIntro from '@/components/about/AboutIntro';
 import AboutFacilities from '@/components/about/AboutFacilities';
 import AboutLocation from '@/components/about/AboutLocation';
-import TabNavigation from '@/components/common/TabNavigation';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+type AboutTabId = 'intro' | 'facilities' | 'location';
 
 export default function AboutPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState('intro');
+  const [activeTab, setActiveTab] = useState<AboutTabId>('intro');
 
   const tabs = [
-    { id: 'intro', label: '학원소개', component: <AboutIntro /> },
-    { id: 'facilities', label: '시설안내', component: <AboutFacilities /> },
-    { id: 'location', label: '오시는 길', component: <AboutLocation /> },
+    { id: 'intro' as const, label: '학원소개', component: <AboutIntro /> },
+    { id: 'facilities' as const, label: '시설안내', component: <AboutFacilities /> },
+    { id: 'location' as const, label: '오시는 길', component: <AboutLocation /> },
   ];
 
   useEffect(() => {
     const tab = searchParams.get('tab');
-    if (tab) {
-      setActiveTab(tab);
+
+    if(tab && ['intro', 'facilities', 'location'].includes(tab)) {
+      setActiveTab(tab as AboutTabId);
     }
   }, [searchParams]);
 
   const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId);
-    router.push(`/about?tab=${tabId}`);
+    const newTab = tabId as AboutTabId;
+    setActiveTab(newTab);
+    router.push(`/about?tab=${newTab}`);
   };
-
-  const activeComponent = tabs.find(tab => tab.id === activeTab)?.component || tabs[0].component;
 
   return (
     <main className="min-h-screen bg-white">
@@ -40,21 +41,38 @@ export default function AboutPage() {
         <div className="relative text-center px-4">
           <h1 className="text-5xl font-bold mb-4 text-gray-900">학원소개</h1>
           <p className="text-xl text-gray-700">
-            기우음 영어학원의 특별한 교육 철학과 비전을 소개합니다
+            키움어학원의 특별한 교육 철학과 비전을 소개합니다
           </p>
         </div>
       </div>
 
       {/* 탭 네비게이션 */}
-      <TabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <div className="sticky top-0 z-[80] bg-white shadow-md">
+        <div className="max-w-7xl mx-auto">
+          <nav className="flex overflow-x-auto">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`
+                  flex-1 whitespace-nowrap py-6 px-4 text-center transition-all
+                  hover:bg-gray-50
+                  ${activeTab === tab.id 
+                    ? 'text-blue-600 border-b-2 border-blue-600 font-medium' 
+                    : 'text-gray-600'
+                  }
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
 
-      {/* 컨텐츠 영역 */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {activeComponent}
+     {/* 컨텐츠 영역 */}
+     <div className="max-w-7xl mx-auto px-4 py-12">
+        {tabs.find(tab => tab.id === activeTab)?.component}
       </div>
     </main>
   );

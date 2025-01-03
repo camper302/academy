@@ -7,7 +7,7 @@
  */
 
 export const ACADEMY_LOCATION = {
-  name: '기우음 영어학원',
+  name: '키움어학원',
   address: '경기도 화성시 동탄순환대로 127-17',
   phone: '031-1234-5678',
   coordinates: {
@@ -20,8 +20,8 @@ export const ACADEMY_LOCATION = {
   },
   map: {
     level: 3,
-    markerTitle: '기우음 영어학원',
-    infoWindowContent: '기우음 영어학원'
+    markerTitle: '키움어학원',
+    infoWindowContent: '키움어학원'
   }
 } as const;
 

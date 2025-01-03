@@ -13,7 +13,7 @@ const geistSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "동탄 영어 학원",
+  title: "동탄 키움어학원",
   description: "최고의 영어 교육을 제공하는 동탄 지역 대표 영어 학원입니다.",
 };
 

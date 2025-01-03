@@ -8,7 +8,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Notice } from '@/types/notice';
-import TabNavigation from '@/components/common/TabNavigation';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function NoticePage() {
@@ -74,7 +73,7 @@ export default function NoticePage() {
         <div className="relative text-center px-4">
           <h1 className="text-5xl font-bold mb-4 text-gray-900">공지사항</h1>
           <p className="text-xl text-gray-700">
-            기우음 영어학원의 새로운 소식을 알려드립니다
+            키움어학원의 새로운 소식을 알려드립니다
           </p>
         </div>
       </div>

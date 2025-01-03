@@ -19,7 +19,7 @@ export default function AboutLocation() {
       <h2 className="text-3xl font-bold text-center mb-12">오시는 길</h2>
       <div className="bg-white rounded-lg shadow-md p-8">
         <div className="mb-8">
-          <h3 className="text-xl font-bold mb-4">기우음 영어학원</h3>
+          <h3 className="text-xl font-bold mb-4">키움어학원</h3>
           <p className="text-gray-600 mb-2">경기도 화성시 동탄순환대로 127-17</p>
           <p className="text-gray-600">전화: 031-1234-5678</p>
         </div>

@@ -9,7 +9,6 @@
  */
 'use client';
 
-import TabNavigation from '@/components/common/TabNavigation';
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ElementaryProgram from '@/components/programs/ElementaryProgram';
@@ -69,7 +68,7 @@ export default function ProgramsPage() {
         <div className="relative text-center px-4">
           <h1 className="text-5xl font-bold mb-4 text-gray-900">교육 프로그램</h1>
           <p className="text-xl text-gray-700">
-            기우음 영어학원의 체계적인 교육 프로그램을 소개합니다
+            키움어학원의 체계적인 교육 프로그램을 소개합니다
           </p>
         </div>
       </div>
